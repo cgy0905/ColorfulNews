@@ -1,0 +1,94 @@
+apply plugin: 'com.android.application'
+apply plugin: 'org.greenrobot.greendao' // apply plugin
+
+android {
+    compileSdkVersion 28
+    buildToolsVersion "28.0.3"
+
+
+    defaultConfig {
+        applicationId "com.cgy.colorfulnews"
+        minSdkVersion 19
+        targetSdkVersion 28
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+    }
+
+    buildTypes {
+
+        debug {
+            buildConfigField "boolean", "LOG_DEBUG", "true"
+        }
+
+        release {
+            buildConfigField "boolean", "LOG_DEBUG", "false"
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    //lambda表达式配置
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+}
+greendao {
+    schemaVersion 1 // 数据库版本号
+    daoPackage 'com.cgy.colorfulnews.db'//greenDao 自动生成的代码保存的包名
+    targetGenDir 'src/main/java' //自动生成的代码存储的路径，默认是 build/generated/source/greendao.
+    generateTests false //true的时候自动生成测试单元
+    targetGenDirTests 'src/androidTest/java' //测试单元的生成目录默认是
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation 'com.android.support:appcompat-v7:28.0.0'
+    implementation 'com.android.support.constraint:constraint-layout:1.1.3'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.0.1'
+    debugImplementation 'com.squareup.leakcanary:leakcanary-android:1.4-beta2'
+    releaseImplementation 'com.squareup.leakcanary:leakcanary-android-no-op:1.4-beta2'
+    testImplementation 'com.squareup.leakcanary:leakcanary-android-no-op:1.4-beta2'
+    annotationProcessor 'com.google.dagger:dagger-compiler:2.19'
+    //指定注解处理器
+    //dagger公用api
+    compileOnly 'org.glassfish:javax.annotation:10.0-b28'
+    //添加android缺失的部分javax注解
+    // Because RxAndroid releases are few and far between, it is recommended you also
+    // explicitly depend on RxJava's latest version for bug fixes and new features.
+    implementation 'com.android.support:design:28.0.0'
+    implementation 'com.jakewharton:butterknife:8.0.1'
+    implementation 'com.android.support:support-v4:28.0.0'
+    implementation 'com.android.support:recyclerview-v7:28.0.0'
+    implementation 'com.google.dagger:dagger:2.19'
+    implementation 'io.reactivex:rxandroid:1.2.1'
+    implementation 'io.reactivex:rxjava:1.2.10'
+    implementation 'com.google.code.gson:gson:2.4'
+    implementation 'com.squareup.retrofit2:retrofit:2.0.2'
+    implementation 'com.squareup.retrofit2:converter-gson:2.0.2'
+    implementation 'com.squareup.retrofit2:converter-jackson:2.0.0'
+    implementation 'com.squareup.retrofit2:adapter-rxjava:2.0.2'
+    implementation 'com.squareup.okhttp3:okhttp:3.0.1'
+    implementation 'com.squareup.okhttp3:logging-interceptor:3.0.1'
+    implementation 'com.squareup.okio:okio:1.6.0'
+    implementation 'com.github.zhaokaiqiang.klog:library:1.4.0'
+    implementation 'com.android.support:cardview-v7:28.0.0'
+    implementation 'com.github.bumptech.glide:glide:3.7.0'
+    implementation 'org.greenrobot:greendao:3.2.2' // add library
+    implementation 'com.readystatesoftware.systembartint:systembartint:1.0.3'
+    implementation 'com.dmitrymalkovich.android:material-design-dimens:1.2'
+    implementation 'com.jakewharton.rxbinding:rxbinding-recyclerview-v7:0.4.0'
+    implementation 'com.github.chrisbanes:PhotoView:1.2.6'
+
+    implementation 'com.nineoldandroids:library:2.4.0'
+    implementation 'com.daimajia.easing:library:1.0.1@aar'
+    implementation 'com.daimajia.androidanimations:library:1.1.3@aar'
+
+    implementation 'com.squareup.picasso:picasso:2.5.2'
+
+}
