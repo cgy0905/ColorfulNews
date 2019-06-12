@@ -91,7 +91,7 @@ public class NewsChannelTableManager {
         return newsChannelTableQuery.list();
     }
 
-    public static List<NewsChannelTable> loadNewsChannelsIndexLtAndIsUnselect(int channelIndex) {
+    public static List<NewsChannelTable> loadNewsChannelsIndexLtAndIsUnselected(int channelIndex) {
         Query<NewsChannelTable> newsChannelTableQuery = App.getNewsChannelTableDao().queryBuilder()
                 .where(NewsChannelTableDao.Properties.NewsChannelIndex.lt(channelIndex),
                         NewsChannelTableDao.Properties.NewsChannelSelect.eq(false)).build();

@@ -1,4 +1,4 @@
-package com.cgy.colorfulnews.module.news;
+package com.cgy.colorfulnews.module.news.adapter;
 
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -16,6 +16,7 @@ public class NewsFragmentPagerAdapter extends FragmentPagerAdapter {
 
     private final List<String> mTitles;
     private List<Fragment> mNewsFragmentList;
+
     public NewsFragmentPagerAdapter(FragmentManager fm, List<String> titles, List<Fragment> newsFragmentList) {
         super(fm);
         mTitles = titles;

@@ -161,7 +161,7 @@ public class NewsActivity extends BaseActivity
         mTabs.setupWithViewPager(mViewPager);
         MyUtils.dynamicSetTabLayoutMode(mTabs);
 //        mTabs.setTabsFromPagerAdapter(adapter);
-        setPageChangeListener();
+        setPagerChangeListener();
 
         mChannelNames = channelNames;
         int currentViewPagerPosition = getCurrentViewPagerPosition();
@@ -180,7 +180,7 @@ public class NewsActivity extends BaseActivity
         return position;
     }
 
-    private void setPageChangeListener() {
+    private void setPagerChangeListener() {
         mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {

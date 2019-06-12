@@ -1,7 +1,8 @@
-package com.cgy.colorfulnews.module.news.interactor;
+package com.cgy.colorfulnews.module.news.interactor.impl;
 
 import com.cgy.colorfulnews.entity.NewsSummary;
 import com.cgy.colorfulnews.listener.RequestCallback;
+import com.cgy.colorfulnews.module.news.interactor.NewsListInteract;
 
 import java.util.List;
 
@@ -14,7 +15,7 @@ import rx.Subscription;
  * @desctiption
  * @date 2019/6/12 15:27
  */
-public class NewsListInteractImpl implements NewsListInteractor<List<NewsSummary>>{
+public class NewsListInteractImpl implements NewsListInteract<List<NewsSummary>> {
 
     @Inject
     public NewsListInteractImpl(){}

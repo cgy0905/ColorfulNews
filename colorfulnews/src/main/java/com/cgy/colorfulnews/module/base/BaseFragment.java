@@ -16,6 +16,7 @@ import com.cgy.colorfulnews.utils.MyUtils;
 import com.squareup.leakcanary.RefWatcher;
 
 import butterknife.ButterKnife;
+import butterknife.Unbinder;
 import rx.Subscription;
 
 /**
@@ -39,6 +40,7 @@ public abstract class BaseFragment<T extends BasePresenter> extends Fragment {
     public abstract int getLayoutId();
 
     protected Subscription mSubscription;
+    private Unbinder unbinder;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -55,7 +57,7 @@ public abstract class BaseFragment<T extends BasePresenter> extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         if (mFragmentView == null) {
             mFragmentView = inflater.inflate(getLayoutId(), container, false);
-            ButterKnife.bind(this, mFragmentView);
+            unbinder = ButterKnife.bind(this, mFragmentView);
             initView(mFragmentView);
         }
         return mFragmentView;
@@ -70,7 +72,7 @@ public abstract class BaseFragment<T extends BasePresenter> extends Fragment {
         if (mPresenter != null) {
             mPresenter.onDestroy();
         }
-
+        unbinder.unbind();
         MyUtils.cancelSubscription(mSubscription);
     }
 }

@@ -9,6 +9,6 @@ import rx.Subscription;
  * @desctiption
  * @date 2019/6/12 14:22
  */
-public interface NewsInteractor<T> {
+public interface NewsInteract<T> {
     Subscription loadNewsChannels(RequestCallback<T> callback);
 }

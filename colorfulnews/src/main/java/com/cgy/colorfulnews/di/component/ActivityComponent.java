@@ -6,6 +6,7 @@ import android.content.Context;
 import com.cgy.colorfulnews.di.module.ActivityModule;
 import com.cgy.colorfulnews.di.scope.ContextLife;
 import com.cgy.colorfulnews.di.scope.PerActivity;
+import com.cgy.colorfulnews.module.news.activity.NewsActivity;
 
 import dagger.Component;
 
@@ -25,6 +26,8 @@ public interface ActivityComponent {
     Context getApplicationContext();
 
     Activity getActivity();
+
+    void inject(NewsActivity newsActivity);
 
 
 }

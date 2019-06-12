@@ -1,4 +1,4 @@
-package com.cgy.colorfulnews.module.news;
+package com.cgy.colorfulnews.module.news.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -18,6 +18,10 @@ import com.cgy.colorfulnews.db.NewsChannel;
 import com.cgy.colorfulnews.event.ChannelChangeEvent;
 import com.cgy.colorfulnews.event.ScrollToTopEvent;
 import com.cgy.colorfulnews.module.base.BaseActivity;
+import com.cgy.colorfulnews.module.news.adapter.NewsFragmentPagerAdapter;
+import com.cgy.colorfulnews.module.news.fragment.NewsListFragment;
+import com.cgy.colorfulnews.module.news.presenter.impl.NewsPresenterImpl;
+import com.cgy.colorfulnews.module.news.view.NewsView;
 import com.cgy.colorfulnews.utils.MyUtils;
 import com.cgy.colorfulnews.utils.RxBus;
 

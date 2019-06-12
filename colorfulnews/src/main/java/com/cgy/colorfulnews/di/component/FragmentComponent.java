@@ -6,6 +6,7 @@ import android.content.Context;
 import com.cgy.colorfulnews.di.module.FragmentModule;
 import com.cgy.colorfulnews.di.scope.ContextLife;
 import com.cgy.colorfulnews.di.scope.PerFragment;
+import com.cgy.colorfulnews.module.news.fragment.NewsListFragment;
 
 import dagger.Component;
 
@@ -25,5 +26,7 @@ public interface FragmentComponent {
     Context getApplicationContext();
 
     Activity getActivity();
+
+    void inject(NewsListFragment newsListFragment);
 
 }

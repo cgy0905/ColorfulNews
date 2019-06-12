@@ -1,4 +1,4 @@
-package com.cgy.colorfulnews.module.news;
+package com.cgy.colorfulnews.module.news.view;
 
 import com.cgy.colorfulnews.db.NewsChannel;
 import com.cgy.colorfulnews.module.base.BaseView;

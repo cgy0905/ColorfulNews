@@ -1,4 +1,4 @@
-package com.cgy.colorfulnews.module.news;
+package com.cgy.colorfulnews.module.news.presenter;
 
 import com.cgy.colorfulnews.module.base.BasePresenter;
 

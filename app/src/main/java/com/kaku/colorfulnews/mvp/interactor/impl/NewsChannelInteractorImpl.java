@@ -169,7 +169,7 @@ public class NewsChannelInteractorImpl implements NewsChannelInteractor<Map<Inte
                     int targetIndex = NewsChannelTableManager.getAllSize();
                     ChangeIsSelectAndIndex(targetIndex, false);
                 } else {
-                    List<NewsChannelTable> newsChannels = NewsChannelTableManager.loadNewsChannelsIndexLtAndIsUnselect(channelIndex);
+                    List<NewsChannelTable> newsChannels = NewsChannelTableManager.loadNewsChannelsIndexLtAndIsUnselected(channelIndex);
                     increaseOrReduceIndexAndUpdate(newsChannels, true);
 
                     int targetIndex = NewsChannelTableManager.getNewsChannelSelectSize();
