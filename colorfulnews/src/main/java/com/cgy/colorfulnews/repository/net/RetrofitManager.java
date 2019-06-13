@@ -1,4 +1,4 @@
-package com.cgy.colorfulnews.repository;
+package com.cgy.colorfulnews.repository.net;
 
 import android.support.annotation.NonNull;
 import android.util.SparseArray;

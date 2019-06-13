@@ -1,4 +1,4 @@
-package com.cgy.colorfulnews.repository;
+package com.cgy.colorfulnews.repository.net;
 
 import com.cgy.colorfulnews.entity.NewsDetail;
 import com.cgy.colorfulnews.entity.NewsSummary;

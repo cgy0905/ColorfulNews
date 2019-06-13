@@ -3,7 +3,7 @@ package com.cgy.colorfulnews.module.news.presenter.impl;
 import com.cgy.colorfulnews.db.NewsChannel;
 import com.cgy.colorfulnews.module.base.BasePresenterImpl;
 import com.cgy.colorfulnews.module.news.interactor.NewsInteract;
-import com.cgy.colorfulnews.module.news.interactor.impl.NewsInteractorImpl;
+import com.cgy.colorfulnews.module.news.interactor.impl.NewsInteractImpl;
 import com.cgy.colorfulnews.module.news.presenter.NewsPresenter;
 import com.cgy.colorfulnews.module.news.view.NewsView;
 
@@ -18,11 +18,11 @@ import javax.inject.Inject;
  */
 public class NewsPresenterImpl extends BasePresenterImpl<NewsView, List<NewsChannel>> implements NewsPresenter {
 
-    private NewsInteract<List<NewsChannel>> mNewsInteractor;
+    private NewsInteract<List<NewsChannel>> mNewsInteract;
 
     @Inject
-    public NewsPresenterImpl(NewsInteractorImpl newsInteractor) {
-        mNewsInteractor = newsInteractor;
+    public NewsPresenterImpl(NewsInteractImpl newsInteract) {
+        mNewsInteract = newsInteract;
     }
 
     @Override
@@ -32,7 +32,7 @@ public class NewsPresenterImpl extends BasePresenterImpl<NewsView, List<NewsChan
     }
 
     private void loadNewsChannels() {
-        mSubscription = mNewsInteractor.loadNewsChannels(this);
+        mSubscription = mNewsInteract.loadNewsChannels(this);
     }
 
     @Override

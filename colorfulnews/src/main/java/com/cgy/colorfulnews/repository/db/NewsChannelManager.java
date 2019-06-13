@@ -1,9 +1,11 @@
-package com.cgy.colorfulnews.db;
+package com.cgy.colorfulnews.repository.db;
 
 import com.cgy.colorfulnews.App;
 import com.cgy.colorfulnews.R;
 import com.cgy.colorfulnews.common.ApiConstants;
 import com.cgy.colorfulnews.common.Constants;
+import com.cgy.colorfulnews.db.NewsChannel;
+import com.cgy.colorfulnews.db.NewsChannelDao;
 import com.cgy.colorfulnews.utils.MyUtils;
 
 import org.greenrobot.greendao.query.Query;

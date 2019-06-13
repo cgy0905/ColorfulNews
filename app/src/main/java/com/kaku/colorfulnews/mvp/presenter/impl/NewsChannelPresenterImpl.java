@@ -18,7 +18,7 @@ package com.kaku.colorfulnews.mvp.presenter.impl;
 
 import com.kaku.colorfulnews.common.Constants;
 import com.kaku.colorfulnews.event.ChannelChangeEvent;
-import com.kaku.colorfulnews.greendao.NewsChannelTable;
+import com.kaku.colorfulnews.greendao.NewsChannel;
 import com.kaku.colorfulnews.mvp.interactor.impl.NewsChannelInteractorImpl;
 import com.kaku.colorfulnews.mvp.presenter.NewsChannelPresenter;
 import com.kaku.colorfulnews.mvp.presenter.base.BasePresenterImpl;
@@ -35,7 +35,7 @@ import javax.inject.Inject;
  * @version 1.0 2016/6/30
  */
 public class NewsChannelPresenterImpl extends BasePresenterImpl<NewsChannelView,
-        Map<Integer, List<NewsChannelTable>>> implements NewsChannelPresenter {
+        Map<Integer, List<NewsChannel>>> implements NewsChannelPresenter {
 
     private NewsChannelInteractorImpl mNewsChannelInteractor;
     private boolean mIsChannelChanged;
@@ -60,7 +60,7 @@ public class NewsChannelPresenterImpl extends BasePresenterImpl<NewsChannelView,
     }
 
     @Override
-    public void success(Map<Integer, List<NewsChannelTable>> data) {
+    public void success(Map<Integer, List<NewsChannel>> data) {
         super.success(data);
         mView.initRecyclerViews(data.get(Constants.NEWS_CHANNEL_MINE), data.get(Constants.NEWS_CHANNEL_MORE));
     }
@@ -72,7 +72,7 @@ public class NewsChannelPresenterImpl extends BasePresenterImpl<NewsChannelView,
     }
 
     @Override
-    public void onItemAddOrRemove(NewsChannelTable newsChannel, boolean isChannelMine) {
+    public void onItemAddOrRemove(NewsChannel newsChannel, boolean isChannelMine) {
         mNewsChannelInteractor.updateDb(newsChannel, isChannelMine);
         mIsChannelChanged = true;
     }

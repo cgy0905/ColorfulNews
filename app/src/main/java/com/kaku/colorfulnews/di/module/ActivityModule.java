@@ -40,13 +40,13 @@ public class ActivityModule {
     @Provides
     @PerActivity
     @ContextLife("Activity")
-    public Context ProvideActivityContext() {
+    public Context provideActivityContext() {
         return mActivity;
     }
 
     @Provides
     @PerActivity
-    public Activity ProvideActivity() {
+    public Activity provideActivity() {
         return mActivity;
     }
 }

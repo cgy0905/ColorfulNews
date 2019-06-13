@@ -33,7 +33,7 @@ import com.kaku.colorfulnews.annotation.BindValues;
 import com.kaku.colorfulnews.common.Constants;
 import com.kaku.colorfulnews.event.ChannelChangeEvent;
 import com.kaku.colorfulnews.event.ScrollToTopEvent;
-import com.kaku.colorfulnews.greendao.NewsChannelTable;
+import com.kaku.colorfulnews.greendao.NewsChannel;
 import com.kaku.colorfulnews.mvp.presenter.impl.NewPresenterImpl;
 import com.kaku.colorfulnews.mvp.ui.activities.base.BaseActivity;
 import com.kaku.colorfulnews.mvp.ui.adapter.PagerAdapter.NewsFragmentPagerAdapter;
@@ -127,7 +127,7 @@ public class NewsActivity extends BaseActivity
 
 
     @Override
-    public void initViewPager(List<NewsChannelTable> newsChannels) {
+    public void initViewPager(List<NewsChannel> newsChannels) {
         final List<String> channelNames = new ArrayList<>();
         if (newsChannels != null) {
             setNewsList(newsChannels, channelNames);
@@ -135,16 +135,16 @@ public class NewsActivity extends BaseActivity
         }
     }
 
-    private void setNewsList(List<NewsChannelTable> newsChannels, List<String> channelNames) {
+    private void setNewsList(List<NewsChannel> newsChannels, List<String> channelNames) {
         mNewsFragmentList.clear();
-        for (NewsChannelTable newsChannel : newsChannels) {
+        for (NewsChannel newsChannel : newsChannels) {
             NewsListFragment newsListFragment = createListFragments(newsChannel);
             mNewsFragmentList.add(newsListFragment);
             channelNames.add(newsChannel.getNewsChannelName());
         }
     }
 
-    private NewsListFragment createListFragments(NewsChannelTable newsChannel) {
+    private NewsListFragment createListFragments(NewsChannel newsChannel) {
         NewsListFragment fragment = new NewsListFragment();
         Bundle bundle = new Bundle();
         bundle.putString(Constants.NEWS_ID, newsChannel.getNewsChannelId());

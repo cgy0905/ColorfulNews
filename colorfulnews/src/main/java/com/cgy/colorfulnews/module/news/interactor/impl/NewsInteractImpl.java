@@ -3,7 +3,7 @@ package com.cgy.colorfulnews.module.news.interactor.impl;
 import com.cgy.colorfulnews.App;
 import com.cgy.colorfulnews.R;
 import com.cgy.colorfulnews.db.NewsChannel;
-import com.cgy.colorfulnews.db.NewsChannelManager;
+import com.cgy.colorfulnews.repository.db.NewsChannelManager;
 import com.cgy.colorfulnews.listener.RequestCallback;
 import com.cgy.colorfulnews.module.news.interactor.NewsInteract;
 import com.cgy.colorfulnews.utils.TransformUtils;
@@ -21,10 +21,10 @@ import rx.Subscription;
  * @desctiption
  * @date 2019/6/12 14:25
  */
-public class NewsInteractorImpl implements NewsInteract<List<NewsChannel>> {
+public class NewsInteractImpl implements NewsInteract<List<NewsChannel>> {
 
     @Inject
-    public NewsInteractorImpl() {}
+    public NewsInteractImpl() {}
 
     @Override
     public Subscription loadNewsChannels(RequestCallback<List<NewsChannel>> callback) {

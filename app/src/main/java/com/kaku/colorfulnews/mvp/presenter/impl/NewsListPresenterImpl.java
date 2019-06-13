@@ -40,7 +40,7 @@ public class NewsListPresenterImpl extends BasePresenterImpl<NewsListView, List<
     private String mNewsType;
     private String mNewsId;
     private int mStartPage;
-    private boolean misFirstLoad;
+    private boolean mIsFirstLoad;
     private boolean mIsRefresh = true;
 
     @Inject
@@ -57,7 +57,7 @@ public class NewsListPresenterImpl extends BasePresenterImpl<NewsListView, List<
 
     @Override
     public void beforeRequest() {
-        if (!misFirstLoad) {
+        if (!mIsFirstLoad) {
             mView.showProgress();
         }
     }
@@ -73,7 +73,7 @@ public class NewsListPresenterImpl extends BasePresenterImpl<NewsListView, List<
 
     @Override
     public void success(List<NewsSummary> items) {
-        misFirstLoad = true;
+        mIsFirstLoad = true;
         if (items != null) {
             mStartPage += 20;
         }

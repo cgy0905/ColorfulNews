@@ -16,7 +16,7 @@
  */
 package com.kaku.colorfulnews.mvp.presenter.impl;
 
-import com.kaku.colorfulnews.greendao.NewsChannelTable;
+import com.kaku.colorfulnews.greendao.NewsChannel;
 import com.kaku.colorfulnews.mvp.interactor.NewsInteractor;
 import com.kaku.colorfulnews.mvp.interactor.impl.NewsInteractorImpl;
 import com.kaku.colorfulnews.mvp.presenter.NewsPresenter;
@@ -31,10 +31,10 @@ import javax.inject.Inject;
  * @author 咖枯
  * @version 1.0 2016/6/2
  */
-public class NewPresenterImpl extends BasePresenterImpl<NewsView, List<NewsChannelTable>>
+public class NewPresenterImpl extends BasePresenterImpl<NewsView, List<NewsChannel>>
         implements NewsPresenter {
 
-    private NewsInteractor<List<NewsChannelTable>> mNewsInteractor;
+    private NewsInteractor<List<NewsChannel>> mNewsInteractor;
 
     @Inject
     public NewPresenterImpl(NewsInteractorImpl newsInteractor) {
@@ -52,7 +52,7 @@ public class NewPresenterImpl extends BasePresenterImpl<NewsView, List<NewsChann
     }
 
     @Override
-    public void success(List<NewsChannelTable> data) {
+    public void success(List<NewsChannel> data) {
         super.success(data);
         mView.initViewPager(data);
     }

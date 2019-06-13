@@ -16,7 +16,7 @@
  */
 package com.kaku.colorfulnews.mvp.view;
 
-import com.kaku.colorfulnews.greendao.NewsChannelTable;
+import com.kaku.colorfulnews.greendao.NewsChannel;
 import com.kaku.colorfulnews.mvp.view.base.BaseView;
 
 import java.util.List;
@@ -26,5 +26,5 @@ import java.util.List;
  * @version 1.0 2016/6/30
  */
 public interface NewsChannelView extends BaseView {
-    void initRecyclerViews(List<NewsChannelTable> newsChannelsMine, List<NewsChannelTable> newsChannelsMore);
+    void initRecyclerViews(List<NewsChannel> newsChannelsMine, List<NewsChannel> newsChannelsMore);
 }

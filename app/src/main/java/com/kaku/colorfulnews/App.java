@@ -30,7 +30,7 @@ import com.kaku.colorfulnews.di.component.DaggerApplicationComponent;
 import com.kaku.colorfulnews.di.module.ApplicationModule;
 import com.kaku.colorfulnews.greendao.DaoMaster;
 import com.kaku.colorfulnews.greendao.DaoSession;
-import com.kaku.colorfulnews.greendao.NewsChannelTableDao;
+import com.kaku.colorfulnews.greendao.NewsChannelDao;
 import com.kaku.colorfulnews.utils.MyUtils;
 import com.socks.library.KLog;
 import com.squareup.leakcanary.LeakCanary;
@@ -178,8 +178,8 @@ public class App extends Application {
         return mApplicationComponent;
     }
 
-    public static NewsChannelTableDao getNewsChannelTableDao() {
-        return mDaoSession.getNewsChannelTableDao();
+    public static NewsChannelDao getNewsChannelDao() {
+        return mDaoSession.getNewsChannelDao();
     }
 
     public static boolean isHavePhoto() {

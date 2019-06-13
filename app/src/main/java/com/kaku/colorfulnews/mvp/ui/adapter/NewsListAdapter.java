@@ -153,9 +153,9 @@ public class NewsListAdapter extends BaseRecyclerViewAdapter<NewsSummary> {
     }
 
     private void setImageView(PhotoViewHolder holder, NewsSummary newsSummary) {
-        int PhotoThreeHeight = (int) DimenUtil.dp2px(90);
-        int PhotoTwoHeight = (int) DimenUtil.dp2px(120);
-        int PhotoOneHeight = (int) DimenUtil.dp2px(150);
+        int photoThreeHeight = (int) DimenUtil.dp2px(90);
+        int photoTwoHeight = (int) DimenUtil.dp2px(120);
+        int photoOneHeight = (int) DimenUtil.dp2px(150);
 
         String imgSrcLeft = null;
         String imgSrcMiddle = null;
@@ -171,7 +171,7 @@ public class NewsListAdapter extends BaseRecyclerViewAdapter<NewsSummary> {
                 imgSrcMiddle = adsBeanList.get(1).getImgsrc();
                 imgSrcRight = adsBeanList.get(2).getImgsrc();
 
-                layoutParams.height = PhotoThreeHeight;
+                layoutParams.height = photoThreeHeight;
 
                 holder.mNewsSummaryTitleTv.setText(App.getAppContext()
                         .getString(R.string.photo_collections, adsBeanList.get(0).getTitle()));
@@ -179,11 +179,11 @@ public class NewsListAdapter extends BaseRecyclerViewAdapter<NewsSummary> {
                 imgSrcLeft = adsBeanList.get(0).getImgsrc();
                 imgSrcMiddle = adsBeanList.get(1).getImgsrc();
 
-                layoutParams.height = PhotoTwoHeight;
+                layoutParams.height = photoTwoHeight;
             } else if (size >= 1) {
                 imgSrcLeft = adsBeanList.get(0).getImgsrc();
 
-                layoutParams.height = PhotoOneHeight;
+                layoutParams.height = photoOneHeight;
             }
         } else if (newsSummary.getImgextra() != null) {
             int size = newsSummary.getImgextra().size();
@@ -192,21 +192,21 @@ public class NewsListAdapter extends BaseRecyclerViewAdapter<NewsSummary> {
                 imgSrcMiddle = newsSummary.getImgextra().get(1).getImgsrc();
                 imgSrcRight = newsSummary.getImgextra().get(2).getImgsrc();
 
-                layoutParams.height = PhotoThreeHeight;
+                layoutParams.height = photoThreeHeight;
             } else if (size >= 2) {
                 imgSrcLeft = newsSummary.getImgextra().get(0).getImgsrc();
                 imgSrcMiddle = newsSummary.getImgextra().get(1).getImgsrc();
 
-                layoutParams.height = PhotoTwoHeight;
+                layoutParams.height = photoTwoHeight;
             } else if (size >= 1) {
                 imgSrcLeft = newsSummary.getImgextra().get(0).getImgsrc();
 
-                layoutParams.height = PhotoOneHeight;
+                layoutParams.height = photoOneHeight;
             }
         } else {
             imgSrcLeft = newsSummary.getImgsrc();
 
-            layoutParams.height = PhotoOneHeight;
+            layoutParams.height = photoOneHeight;
         }
 
         setPhotoImageView(holder, imgSrcLeft, imgSrcMiddle, imgSrcRight);

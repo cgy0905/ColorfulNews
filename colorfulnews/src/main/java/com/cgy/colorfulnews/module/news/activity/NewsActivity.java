@@ -9,6 +9,7 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 
 import com.cgy.colorfulnews.R;
@@ -37,7 +38,7 @@ import butterknife.OnClick;
 public class NewsActivity extends BaseActivity implements NewsView {
 
     @BindView(R.id.toolbar)
-    TabLayout mToolbar;
+    Toolbar mToolbar;
     @BindView(R.id.tabs)
     TabLayout mTabs;
     @BindView(R.id.view_pager)
@@ -49,13 +50,11 @@ public class NewsActivity extends BaseActivity implements NewsView {
     @BindView(R.id.drawer_layout)
     DrawerLayout mDrawerLayout;
 
-
-    private String mCurrentViewPagerName;
-    private List<String> mChannelNames;
-
     @Inject
     NewsPresenterImpl mNewsPresenter;
 
+    private String mCurrentViewPagerName;
+    private List<String> mChannelNames;
     private List<Fragment> mNewsFragmentList = new ArrayList<>();
 
 

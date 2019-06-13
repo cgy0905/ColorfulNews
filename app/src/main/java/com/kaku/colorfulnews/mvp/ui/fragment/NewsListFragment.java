@@ -70,7 +70,7 @@ import static android.support.v7.widget.RecyclerView.OnScrollListener;
 public class NewsListFragment extends BaseFragment implements NewsListView, NewsListAdapter.OnNewsListItemClickListener,
         SwipeRefreshLayout.OnRefreshListener {
     @BindView(R.id.news_rv)
-    RecyclerView mNewsRV;
+    RecyclerView mNewsRv;
     @BindView(R.id.progress_bar)
     ProgressBar mProgressBar;
     @BindView(R.id.swipe_refresh_layout)
@@ -121,17 +121,17 @@ public class NewsListFragment extends BaseFragment implements NewsListView, News
                 .subscribe(new Action1<ScrollToTopEvent>() {
                     @Override
                     public void call(ScrollToTopEvent scrollToTopEvent) {
-                        mNewsRV.getLayoutManager().scrollToPosition(0);
+                        mNewsRv.getLayoutManager().scrollToPosition(0);
                     }
                 });
     }
 
     private void initRecyclerView() {
-        mNewsRV.setHasFixedSize(true);
-        mNewsRV.setLayoutManager(new LinearLayoutManager(mActivity,
+        mNewsRv.setHasFixedSize(true);
+        mNewsRv.setLayoutManager(new LinearLayoutManager(mActivity,
                 LinearLayoutManager.VERTICAL, false));
-        mNewsRV.setItemAnimator(new DefaultItemAnimator());
-        mNewsRV.addOnScrollListener(new OnScrollListener() {
+        mNewsRv.setItemAnimator(new DefaultItemAnimator());
+        mNewsRv.addOnScrollListener(new OnScrollListener() {
             @Override
             public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
                 super.onScrollStateChanged(recyclerView, newState);
@@ -146,14 +146,14 @@ public class NewsListFragment extends BaseFragment implements NewsListView, News
                         && lastVisibleItemPosition >= totalItemCount - 1) {
                     mNewsListPresenter.loadMore();
                     mNewsListAdapter.showFooter();
-                    mNewsRV.scrollToPosition(mNewsListAdapter.getItemCount() - 1);
+                    mNewsRv.scrollToPosition(mNewsListAdapter.getItemCount() - 1);
                 }
             }
 
         });
 
         mNewsListAdapter.setOnItemClickListener(this);
-        mNewsRV.setAdapter(mNewsListAdapter);
+        mNewsRv.setAdapter(mNewsListAdapter);
     }
 
     @Override
@@ -208,7 +208,7 @@ public class NewsListFragment extends BaseFragment implements NewsListView, News
                 mNewsListAdapter.hideFooter();
                 if (newsSummary == null || newsSummary.size() == 0) {
                     mIsAllLoaded = true;
-                    Snackbar.make(mNewsRV, getString(R.string.no_more), Snackbar.LENGTH_SHORT).show();
+                    Snackbar.make(mNewsRv, getString(R.string.no_more), Snackbar.LENGTH_SHORT).show();
                 } else {
                     mNewsListAdapter.addMore(newsSummary);
                 }
@@ -221,11 +221,11 @@ public class NewsListFragment extends BaseFragment implements NewsListView, News
 
     private void checkIsEmpty(List<NewsSummary> newsSummary) {
         if (newsSummary == null && mNewsListAdapter.getList() == null) {
-            mNewsRV.setVisibility(View.GONE);
+            mNewsRv.setVisibility(View.GONE);
             mEmptyView.setVisibility(View.VISIBLE);
 
         } else {
-            mNewsRV.setVisibility(View.VISIBLE);
+            mNewsRv.setVisibility(View.VISIBLE);
             mEmptyView.setVisibility(View.GONE);
         }
     }
@@ -235,7 +235,7 @@ public class NewsListFragment extends BaseFragment implements NewsListView, News
         mProgressBar.setVisibility(View.GONE);
         // 网络不可用状态在此之前已经显示了提示信息
         if (NetUtil.isNetworkAvailable()) {
-            Snackbar.make(mNewsRV, message, Snackbar.LENGTH_LONG).show();
+            Snackbar.make(mNewsRv, message, Snackbar.LENGTH_LONG).show();
         }
     }
 
@@ -282,12 +282,12 @@ public class NewsListFragment extends BaseFragment implements NewsListView, News
         newsPhotoDetail.setPictures(pictureList);
     }
 
-    private void setValuesAndAddToList(List<NewsPhotoDetail.Picture> pictureList, String title, String imgsrc) {
+    private void setValuesAndAddToList(List<NewsPhotoDetail.Picture> pictureList, String title, String imgSrc) {
         NewsPhotoDetail.Picture picture = new NewsPhotoDetail.Picture();
         if (title != null) {
             picture.setTitle(title);
         }
-        picture.setImgSrc(imgsrc);
+        picture.setImgSrc(imgSrc);
 
         pictureList.add(picture);
     }

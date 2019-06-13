@@ -30,7 +30,7 @@ public class DaoAutoGenerator {
 
     private static void createTable(Schema schema) {
         // 一个实体（类）就关联到数据库中的一张表，此处表名为「Note」（既类名）
-        Entity entity = schema.addEntity("NewsChannelTable");
+        Entity entity = schema.addEntity("NewsChannel");
         // 你也可以重新给表命名
         // note.setTableName("NODE");
 

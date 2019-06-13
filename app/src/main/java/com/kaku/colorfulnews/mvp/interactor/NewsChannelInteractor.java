@@ -16,7 +16,7 @@
  */
 package com.kaku.colorfulnews.mvp.interactor;
 
-import com.kaku.colorfulnews.greendao.NewsChannelTable;
+import com.kaku.colorfulnews.greendao.NewsChannel;
 import com.kaku.colorfulnews.listener.RequestCallback;
 
 import rx.Subscription;
@@ -30,5 +30,5 @@ public interface NewsChannelInteractor<T> {
 
     void swapDb(int fromPosition,int toPosition);
 
-    void updateDb(NewsChannelTable newsChannel, boolean isChannelMine);
+    void updateDb(NewsChannel newsChannel, boolean isChannelMine);
 }

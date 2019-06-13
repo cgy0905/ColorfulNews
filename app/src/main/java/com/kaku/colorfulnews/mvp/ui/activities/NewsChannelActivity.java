@@ -28,7 +28,7 @@ import android.view.View;
 
 import com.kaku.colorfulnews.R;
 import com.kaku.colorfulnews.event.ChannelItemMoveEvent;
-import com.kaku.colorfulnews.greendao.NewsChannelTable;
+import com.kaku.colorfulnews.greendao.NewsChannel;
 import com.kaku.colorfulnews.listener.OnItemClickListener;
 import com.kaku.colorfulnews.mvp.presenter.impl.NewsChannelPresenterImpl;
 import com.kaku.colorfulnews.mvp.ui.activities.base.BaseActivity;
@@ -94,16 +94,16 @@ public class NewsChannelActivity extends BaseActivity implements NewsChannelView
     }
 
     @Override
-    public void initRecyclerViews(List<NewsChannelTable> newsChannelsMine, List<NewsChannelTable> newsChannelsMore) {
+    public void initRecyclerViews(List<NewsChannel> newsChannelsMine, List<NewsChannel> newsChannelsMore) {
         initRecyclerViewMineAndMore(newsChannelsMine, newsChannelsMore);
     }
 
-    private void initRecyclerViewMineAndMore(List<NewsChannelTable> newsChannelsMine, List<NewsChannelTable> newsChannelsMore) {
+    private void initRecyclerViewMineAndMore(List<NewsChannel> newsChannelsMine, List<NewsChannel> newsChannelsMore) {
         initRecyclerView(mNewsChannelMineRv, newsChannelsMine, true);
         initRecyclerView(mNewsChannelMoreRv, newsChannelsMore, false);
     }
 
-    private void initRecyclerView(RecyclerView recyclerView, List<NewsChannelTable> newsChannels
+    private void initRecyclerView(RecyclerView recyclerView, List<NewsChannel> newsChannels
             , final boolean isChannelMine) {
         // !!!加上这句将不能动态增加列表大小。。。
 //        recyclerView.setHasFixedSize(true);
@@ -128,7 +128,7 @@ public class NewsChannelActivity extends BaseActivity implements NewsChannelView
         mNewsChannelAdapterMine.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
-                NewsChannelTable newsChannel = mNewsChannelAdapterMine.getData().get(position);
+                NewsChannel newsChannel = mNewsChannelAdapterMine.getData().get(position);
                 boolean isNewsChannelFixed = newsChannel.getNewsChannelFixed();
                 if (!isNewsChannelFixed) {
                     mNewsChannelAdapterMore.add(mNewsChannelAdapterMore.getItemCount(), newsChannel);
@@ -144,7 +144,7 @@ public class NewsChannelActivity extends BaseActivity implements NewsChannelView
         mNewsChannelAdapterMore.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
-                NewsChannelTable newsChannel = mNewsChannelAdapterMore.getData().get(position);
+                NewsChannel newsChannel = mNewsChannelAdapterMore.getData().get(position);
                 mNewsChannelAdapterMine.add(mNewsChannelAdapterMine.getItemCount(), newsChannel);
                 mNewsChannelAdapterMore.delete(position);
 

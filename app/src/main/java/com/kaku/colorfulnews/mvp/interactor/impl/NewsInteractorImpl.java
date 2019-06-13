@@ -18,10 +18,10 @@ package com.kaku.colorfulnews.mvp.interactor.impl;
 
 import com.kaku.colorfulnews.App;
 import com.kaku.colorfulnews.R;
-import com.kaku.colorfulnews.greendao.NewsChannelTable;
+import com.kaku.colorfulnews.greendao.NewsChannel;
 import com.kaku.colorfulnews.listener.RequestCallback;
 import com.kaku.colorfulnews.mvp.interactor.NewsInteractor;
-import com.kaku.colorfulnews.repository.db.NewsChannelTableManager;
+import com.kaku.colorfulnews.repository.db.NewsChannelManager;
 import com.kaku.colorfulnews.utils.TransformUtils;
 
 import java.util.List;
@@ -36,24 +36,24 @@ import rx.Subscription;
  * @author 咖枯
  * @version 1.0 2016/6/2
  */
-public class NewsInteractorImpl implements NewsInteractor<List<NewsChannelTable>> {
+public class NewsInteractorImpl implements NewsInteractor<List<NewsChannel>> {
 
     @Inject
     public NewsInteractorImpl() {
     }
 
     @Override
-    public Subscription lodeNewsChannels(final RequestCallback<List<NewsChannelTable>> callback) {
-        return Observable.create(new Observable.OnSubscribe<List<NewsChannelTable>>() {
+    public Subscription lodeNewsChannels(final RequestCallback<List<NewsChannel>> callback) {
+        return Observable.create(new Observable.OnSubscribe<List<NewsChannel>>() {
             @Override
-            public void call(Subscriber<? super List<NewsChannelTable>> subscriber) {
-                NewsChannelTableManager.initDB();
-                subscriber.onNext(NewsChannelTableManager.loadNewsChannelsMine());
+            public void call(Subscriber<? super List<NewsChannel>> subscriber) {
+                NewsChannelManager.initDB();
+                subscriber.onNext(NewsChannelManager.loadNewsChannelsMine());
                 subscriber.onCompleted();
             }
         })
-                .compose(TransformUtils.<List<NewsChannelTable>>defaultSchedulers())
-                .subscribe(new Subscriber<List<NewsChannelTable>>() {
+                .compose(TransformUtils.<List<NewsChannel>>defaultSchedulers())
+                .subscribe(new Subscriber<List<NewsChannel>>() {
                     @Override
                     public void onCompleted() {
 
@@ -65,8 +65,8 @@ public class NewsInteractorImpl implements NewsInteractor<List<NewsChannelTable>
                     }
 
                     @Override
-                    public void onNext(List<NewsChannelTable> newsChannelTables) {
-                        callback.success(newsChannelTables);
+                    public void onNext(List<NewsChannel> newsChannels) {
+                        callback.success(newsChannels);
                     }
                 });
     }

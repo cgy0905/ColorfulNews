@@ -40,7 +40,7 @@ public class ServiceModule {
     @Provides
     @PerService
     @ContextLife("Service")
-    public Context ProvideServiceContext() {
+    public Context provideServiceContext() {
         return mService;
     }
 }

@@ -27,7 +27,7 @@ import android.widget.TextView;
 import com.kaku.colorfulnews.App;
 import com.kaku.colorfulnews.R;
 import com.kaku.colorfulnews.event.ChannelItemMoveEvent;
-import com.kaku.colorfulnews.greendao.NewsChannelTable;
+import com.kaku.colorfulnews.greendao.NewsChannel;
 import com.kaku.colorfulnews.listener.OnItemClickListener;
 import com.kaku.colorfulnews.mvp.ui.adapter.base.BaseRecyclerViewAdapter;
 import com.kaku.colorfulnews.widget.ItemDragHelperCallback;
@@ -45,7 +45,7 @@ import butterknife.ButterKnife;
  * @author 咖枯
  * @version 1.0 2016/6/30
  */
-public class NewsChannelAdapter extends BaseRecyclerViewAdapter<NewsChannelTable> implements
+public class NewsChannelAdapter extends BaseRecyclerViewAdapter<NewsChannel> implements
         ItemDragHelperCallback.OnItemMoveListener {
     private static final int TYPE_CHANNEL_FIXED = 0;
     private static final int TYPE_CHANNEL_NO_FIXED = 1;
@@ -62,11 +62,11 @@ public class NewsChannelAdapter extends BaseRecyclerViewAdapter<NewsChannelTable
         mItemDragHelperCallback = itemDragHelperCallback;
     }
 
-    public NewsChannelAdapter(List<NewsChannelTable> newsChannelTableList) {
-        super(newsChannelTableList);
+    public NewsChannelAdapter(List<NewsChannel> NewsChannelList) {
+        super(NewsChannelList);
     }
 
-    public List<NewsChannelTable> getData() {
+    public List<NewsChannel> getData() {
         return mList;
     }
 
@@ -84,7 +84,7 @@ public class NewsChannelAdapter extends BaseRecyclerViewAdapter<NewsChannelTable
             newsChannelViewHolder.itemView.setOnTouchListener(new View.OnTouchListener() {
                 @Override
                 public boolean onTouch(View v, MotionEvent event) {
-                    NewsChannelTable newsChannel = mList.get(newsChannelViewHolder.getLayoutPosition());
+                    NewsChannel newsChannel = mList.get(newsChannelViewHolder.getLayoutPosition());
                     boolean isChannelFixed = newsChannel.getNewsChannelFixed();
                     if (isChannelFixed) {
                         mItemDragHelperCallback.setLongPressEnabled(false);
@@ -112,7 +112,7 @@ public class NewsChannelAdapter extends BaseRecyclerViewAdapter<NewsChannelTable
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        final NewsChannelTable newsChannel = mList.get(position);
+        final NewsChannel newsChannel = mList.get(position);
         String newsChannelName = newsChannel.getNewsChannelName();
         NewsChannelViewHolder viewHolder = (NewsChannelViewHolder) holder;
         viewHolder.mNewsChannelTv.setText(newsChannelName);
