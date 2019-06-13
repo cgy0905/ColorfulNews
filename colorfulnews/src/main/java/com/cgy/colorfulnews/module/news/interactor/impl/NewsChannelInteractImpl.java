@@ -1,29 +1,13 @@
-/*
- * Copyright (c) 2016 咖枯 <kaku201313@163.com>
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- *
- */
-package com.kaku.colorfulnews.mvp.interactor.impl;
+package com.cgy.colorfulnews.module.news.interactor.impl;
 
-import com.kaku.colorfulnews.App;
-import com.kaku.colorfulnews.R;
-import com.kaku.colorfulnews.common.Constants;
-import com.kaku.colorfulnews.greendao.NewsChannel;
-import com.kaku.colorfulnews.listener.RequestCallback;
-import com.kaku.colorfulnews.mvp.interactor.NewsChannelInteractor;
-import com.kaku.colorfulnews.repository.db.NewsChannelManager;
-import com.kaku.colorfulnews.utils.TransformUtils;
+import com.cgy.colorfulnews.App;
+import com.cgy.colorfulnews.R;
+import com.cgy.colorfulnews.common.Constants;
+import com.cgy.colorfulnews.db.NewsChannel;
+import com.cgy.colorfulnews.listener.RequestCallback;
+import com.cgy.colorfulnews.module.news.interactor.NewsChannelInteract;
+import com.cgy.colorfulnews.repository.db.NewsChannelManager;
+import com.cgy.colorfulnews.utils.TransformUtils;
 import com.socks.library.KLog;
 
 import java.util.HashMap;
@@ -34,32 +18,30 @@ import java.util.concurrent.Executors;
 
 import javax.inject.Inject;
 
+import rx.Observable;
 import rx.Subscriber;
 import rx.Subscription;
 
 /**
- * @author 咖枯
- * @version 1.0 2016/6/30
+ * @author cgy
+ * @desctiption
+ * @date 2019/6/13 14:54
  */
-public class NewsChannelInteractorImpl implements NewsChannelInteractor<Map<Integer, List<NewsChannel>>> {
+public class NewsChannelInteractImpl implements NewsChannelInteract<Map<Integer, List<NewsChannel>>> {
 
     private ExecutorService mSingleThreadPool;
 
     @Inject
-    public NewsChannelInteractorImpl() {
+    public NewsChannelInteractImpl() {
     }
 
     @Override
-    public Subscription lodeNewsChannels(final RequestCallback<Map<Integer, List<NewsChannel>>> callback) {
-        return rx.Observable.create(new rx.Observable.OnSubscribe<Map<Integer, List<NewsChannel>>>() {
-            @Override
-            public void call(Subscriber<? super Map<Integer, List<NewsChannel>>> subscriber) {
-                Map<Integer, List<NewsChannel>> newsChannelListMap = getNewsChannelData();
-                subscriber.onNext(newsChannelListMap);
-                subscriber.onCompleted();
-            }
-
-        }).compose(TransformUtils.<Map<Integer, List<NewsChannel>>>defaultSchedulers())
+    public Subscription loadNewsChannels(RequestCallback<Map<Integer, List<NewsChannel>>> callback) {
+        return Observable.create((Observable.OnSubscribe<Map<Integer, List<NewsChannel>>>) subscriber -> {
+            Map<Integer, List<NewsChannel>> newsChannelListMap = getNewsChannelData();
+            subscriber.onNext(newsChannelListMap);
+            subscriber.onCompleted();
+        }).compose(TransformUtils.defaultSchedulers())
                 .subscribe(new Subscriber<Map<Integer, List<NewsChannel>>>() {
                     @Override
                     public void onCompleted() {
@@ -88,13 +70,13 @@ public class NewsChannelInteractorImpl implements NewsChannelInteractor<Map<Inte
     }
 
     @Override
-    public void swapDb(final int fromPosition, final int toPosition) {
+    public void swapDb(int fromPosition, int toPosition) {
         createThreadPool();
         mSingleThreadPool.execute(new Runnable() {
             @Override
             public void run() {
                 KLog.d(Thread.currentThread().getName());
-                KLog.d("fromPosition: " + fromPosition + "； toPosition: " + toPosition);
+                KLog.d("fromPosition: " + fromPosition + "; toPosition: " + toPosition);
 
                 NewsChannel fromNewsChannel = NewsChannelManager.loadNewsChannel(fromPosition);
                 NewsChannel toNewsChannel = NewsChannelManager.loadNewsChannel(toPosition);
@@ -102,14 +84,12 @@ public class NewsChannelInteractorImpl implements NewsChannelInteractor<Map<Inte
                 if (isAdjacent(fromPosition, toPosition)) {
                     swapAdjacentIndexAndUpdate(fromNewsChannel, toNewsChannel);
                 } else if (fromPosition - toPosition > 0) {
-                    List<NewsChannel> newsChannels = NewsChannelManager
-                            .loadNewsChannelsWithin(toPosition, fromPosition - 1);
+                    List<NewsChannel> newsChannels = NewsChannelManager.loadNewsChannelsWithin(toPosition, fromPosition - 1);
 
                     increaseOrReduceIndexAndUpdate(newsChannels, true);
                     changeFromChannelIndexAndUpdate(fromNewsChannel, toPosition);
                 } else if (fromPosition - toPosition < 0) {
-                    List<NewsChannel> newsChannels = NewsChannelManager
-                            .loadNewsChannelsWithin(fromPosition + 1, toPosition);
+                    List<NewsChannel> newsChannels = NewsChannelManager.loadNewsChannelsWithin(fromPosition + 1, toPosition);
 
                     increaseOrReduceIndexAndUpdate(newsChannels, false);
                     changeFromChannelIndexAndUpdate(fromNewsChannel, toPosition);
@@ -120,8 +100,7 @@ public class NewsChannelInteractorImpl implements NewsChannelInteractor<Map<Inte
                 return Math.abs(fromChannelIndex - toChannelIndex) == 1;
             }
 
-            private void swapAdjacentIndexAndUpdate(NewsChannel fromNewsChannel,
-                                                    NewsChannel toNewsChannel) {
+            private void swapAdjacentIndexAndUpdate(NewsChannel fromNewsChannel, NewsChannel toNewsChannel) {
                 fromNewsChannel.setNewsChannelIndex(toPosition);
                 toNewsChannel.setNewsChannelIndex(fromPosition);
 
@@ -154,7 +133,7 @@ public class NewsChannelInteractorImpl implements NewsChannelInteractor<Map<Inte
     }
 
     @Override
-    public void updateDb(final NewsChannel newsChannel, final boolean isChannelMine) {
+    public void updateDb(NewsChannel newsChannel, boolean isChannelMine) {
         createThreadPool();
         mSingleThreadPool.execute(new Runnable() {
             @Override
@@ -175,7 +154,6 @@ public class NewsChannelInteractorImpl implements NewsChannelInteractor<Map<Inte
                     int targetIndex = NewsChannelManager.getNewsChannelSelectSize();
                     changeIsSelectAndIndex(targetIndex, true);
                 }
-
             }
 
             private void changeIsSelectAndIndex(int targetIndex, boolean isSelect) {

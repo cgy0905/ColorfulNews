@@ -31,11 +31,16 @@
         <activity android:name=".module.news.activity.NewsActivity"
             android:theme="@style/BaseAppTheme.NoTrans"/>
 
+        <activity android:name=".module.news.activity.NewsDetailActivity" />
+
+        <activity android:name=".module.news.activity.NewsChannelActivity"
+            android:theme="@style/BaseAppTheme.NoTrans"/>
+
         <activity android:name=".module.news.activity.NewsPhotoDetailActivity" />
-        <activity android:name=".module.news.activity.NewsChannelActivity" />
+
         <activity android:name=".module.about.AboutActivity" />
         <activity android:name=".module.photo.PhotoDetailActivity" />
-        <activity android:name=".module.news.activity.NewsDetailActivity" />
+
         <activity android:name=".module.photo.PhotoActivity" />
     </application>
 

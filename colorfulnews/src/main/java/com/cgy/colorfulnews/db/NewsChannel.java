@@ -1,6 +1,7 @@
 package com.cgy.colorfulnews.db;
 
 import org.greenrobot.greendao.annotation.Entity;
+import org.greenrobot.greendao.annotation.Id;
 import org.greenrobot.greendao.annotation.Index;
 import org.greenrobot.greendao.annotation.NotNull;
 import org.greenrobot.greendao.annotation.Generated;
@@ -13,6 +14,8 @@ import org.greenrobot.greendao.annotation.Generated;
 @Entity
 public class NewsChannel {
 
+    @Id(autoincrement = true)
+    private Long id;
     /**
      * 频道名称
      */
@@ -51,11 +54,12 @@ public class NewsChannel {
      */
     private boolean newsChannelFixed;
 
-    @Generated(hash = 2078086755)
-    public NewsChannel(@NotNull String newsChannelName,
+    @Generated(hash = 576877971)
+    public NewsChannel(Long id, @NotNull String newsChannelName,
             @NotNull String newsChannelId, @NotNull String newsChannelType,
             boolean newsChannelSelect, int newsChannelIndex,
             boolean newsChannelFixed) {
+        this.id = id;
         this.newsChannelName = newsChannelName;
         this.newsChannelId = newsChannelId;
         this.newsChannelType = newsChannelType;
@@ -114,6 +118,14 @@ public class NewsChannel {
 
     public void setNewsChannelFixed(boolean newsChannelFixed) {
         this.newsChannelFixed = newsChannelFixed;
+    }
+
+    public Long getId() {
+        return this.id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     

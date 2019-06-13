@@ -62,8 +62,8 @@ public class NewsChannelAdapter extends BaseRecyclerViewAdapter<NewsChannel> imp
         mItemDragHelperCallback = itemDragHelperCallback;
     }
 
-    public NewsChannelAdapter(List<NewsChannel> NewsChannelList) {
-        super(NewsChannelList);
+    public NewsChannelAdapter(List<NewsChannel> newsChannelList) {
+        super(newsChannelList);
     }
 
     public List<NewsChannel> getData() {

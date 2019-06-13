@@ -31,7 +31,7 @@ public class NewsChannelManager {
             List<String> channelId = Arrays.asList(App.getAppContext().getResources()
                     .getStringArray(R.array.news_channel_id));
             for (int i = 0; i < channelName.size(); i++) {
-                NewsChannel entity = new NewsChannel(channelName.get(i), channelId.get(i),
+                NewsChannel entity = new NewsChannel(null, channelName.get(i), channelId.get(i),
                         ApiConstants.getType(channelId.get(i)), i <= 5, i, i == 0);
                 dao.insert(entity);
             }
@@ -48,7 +48,7 @@ public class NewsChannelManager {
 
     public static List<NewsChannel> loadNewsChannelsMore() {
         Query<NewsChannel> newsChannelQuery = App.getNewsChannelDao().queryBuilder()
-                .where(NewsChannelDao.Properties.NewsChannelSelect.eq(true))
+                .where(NewsChannelDao.Properties.NewsChannelSelect.eq(false))
                 .orderAsc(NewsChannelDao.Properties.NewsChannelIndex).build();
         return newsChannelQuery.list();
     }
