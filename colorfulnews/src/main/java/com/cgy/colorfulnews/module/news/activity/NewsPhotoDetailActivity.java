@@ -1,15 +1,13 @@
-package com.cgy.colorfulnews.module;
+package com.cgy.colorfulnews.module.news.activity;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-import com.cgy.colorfulnews.R;
-
-public class MainActivity extends AppCompatActivity {
+public class NewsPhotoDetailActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_news_photo_detail);
     }
 }
