@@ -126,17 +126,17 @@ public class NewsDetailActivity extends BaseActivity implements NewsDetailView {
         String newsSource = newsDetail.getSource();
         String newsTime = MyUtils.formatDate(newsDetail.getPtime());
         String newsBody = newsDetail.getBody();
-        String NewsImgSrc = getImgSrcs(newsDetail);
+        String newsImgSrc = getImgSrcs(newsDetail);
 
 
-        setToolBarLayout(mNewsTitle);
+        setToolbarLayout(mNewsTitle);
 //        mNewsDetailTitleTv.setText(newsTitle);
         mNewsDetailFromTv.setText(getString(R.string.news_from, newsSource, newsTime));
-        setNewsDetailPhotoIv(NewsImgSrc);
+        setNewsDetailPhotoIv(newsImgSrc);
         setNewsDetailBodyTv(newsDetail, newsBody);
     }
 
-    private void setToolBarLayout(String newsTitle) {
+    private void setToolbarLayout(String newsTitle) {
         mToolbarLayout.setTitle(newsTitle);
         mToolbarLayout.setExpandedTitleColor(ContextCompat.getColor(this, R.color.white));
         mToolbarLayout.setCollapsedTitleTextColor(ContextCompat.getColor(this, R.color.primary_text_white));

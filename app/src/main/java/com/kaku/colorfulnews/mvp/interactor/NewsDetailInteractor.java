@@ -25,5 +25,5 @@ import rx.Subscription;
  * @version 1.0 2016/6/4
  */
 public interface NewsDetailInteractor<T> {
-    Subscription loadNewsDetail(RequestCallback<T> callBack, String postId);
+    Subscription loadNewsDetail(RequestCallback<T> callback, String postId);
 }

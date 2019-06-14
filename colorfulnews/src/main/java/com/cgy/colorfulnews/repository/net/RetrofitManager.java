@@ -6,6 +6,7 @@ import android.util.SparseArray;
 import com.cgy.colorfulnews.App;
 import com.cgy.colorfulnews.common.ApiConstants;
 import com.cgy.colorfulnews.common.HostType;
+import com.cgy.colorfulnews.entity.NewsDetail;
 import com.cgy.colorfulnews.entity.NewsSummary;
 import com.cgy.colorfulnews.utils.NetUtil;
 import com.socks.library.KLog;
@@ -22,6 +23,7 @@ import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
+import okhttp3.ResponseBody;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -154,5 +156,17 @@ public class RetrofitManager {
     public Observable<Map<String, List<NewsSummary>>> getNewsListObservable(
             String newsType, String newsId, int startPage) {
         return mNewsService.getNewsList(getCacheControl(), newsType, newsId, startPage);
+    }
+
+    /**
+     * example：http://c.m.163.com/nc/article/BG6CGA9M00264N2N/full.html
+     */
+    public Observable<Map<String, NewsDetail>> getNewsDetailObservable(String postId) {
+        KLog.d(Thread.currentThread().getName());
+        return mNewsService.getNewsDetail(getCacheControl(), postId);
+    }
+
+    public Observable<ResponseBody> getNewsBodyHtmlPhoto(String photoPath) {
+        return mNewsService.getNewsBodyHtmlPhoto(photoPath);
     }
 }

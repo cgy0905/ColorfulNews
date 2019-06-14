@@ -102,7 +102,7 @@ public class URLImageGetter implements Html.ImageGetter {
                 .map(new Func1<ResponseBody, Boolean>() {
                     @Override
                     public Boolean call(ResponseBody response) {
-                        return WritePicToDisk(response, source);
+                        return writePicToDisk(response, source);
                     }
                 }).subscribe(new Subscriber<Boolean>() {
                     @Override
@@ -129,7 +129,7 @@ public class URLImageGetter implements Html.ImageGetter {
     }
 
     @NonNull
-    private Boolean WritePicToDisk(ResponseBody response, String source) {
+    private Boolean writePicToDisk(ResponseBody response, String source) {
         File file = new File(mFilePath, source.hashCode() + "");
         InputStream in = null;
         FileOutputStream out = null;
