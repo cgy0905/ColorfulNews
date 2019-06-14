@@ -43,10 +43,13 @@
             android:name=".module.news.activity.NewsBrowserActivity"
             android:theme="@style/BaseAppTheme.NoTrans" />
 
-        <activity android:name=".module.news.activity.NewsPhotoDetailActivity" />
+        <activity
+            android:name=".module.news.activity.NewsPhotoDetailActivity"
+            android:theme="@style/BaseAppTheme.NoTrans"/>
         <activity
             android:name=".module.about.AboutActivity"
             android:theme="@style/BaseAppTheme.NoTrans"/>
+
         <activity android:name=".module.photo.PhotoDetailActivity" />
         <activity android:name=".module.photo.PhotoActivity" />
     </application>

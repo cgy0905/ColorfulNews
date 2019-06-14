@@ -19,7 +19,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
-import android.widget.CompoundButton;
 import android.widget.Toast;
 
 import com.cgy.colorfulnews.App;
@@ -125,20 +124,17 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
     }
 
     private void setCheckedEvent(SwitchCompat dayNightSwitch) {
-        dayNightSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked) {
-                    changeToNight();
-                    MyUtils.saveTheme(true);
-                } else {
-                    changeToDay();
-                    MyUtils.saveTheme(false);
-                }
-
-                mIsChangeTheme = true;
-                mDrawerLayout.closeDrawer(GravityCompat.START);
+        dayNightSwitch.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            if (isChecked) {
+                changeToNight();
+                MyUtils.saveTheme(true);
+            } else {
+                changeToDay();
+                MyUtils.saveTheme(false);
             }
+
+            mIsChangeTheme = true;
+            mDrawerLayout.closeDrawer(GravityCompat.START);
         });
     }
 
@@ -151,15 +147,15 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
 
 
     private void initToolBar() {
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
     }
 
     private void initDrawerLayout() {
 
-        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        NavigationView navView = (NavigationView) findViewById(R.id.nav_view);
+        mDrawerLayout = findViewById(R.id.drawer_layout);
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        NavigationView navView = findViewById(R.id.nav_view);
 
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, mDrawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -167,25 +163,22 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
         toggle.syncState();
 
         if (navView != null) {
-            navView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
-                @Override
-                public boolean onNavigationItemSelected(MenuItem item) {
-                    switch (item.getItemId()) {
-                        case R.id.nav_news:
-                            mClass = NewsActivity.class;
-                            break;
-                        case R.id.nav_photo:
-                            mClass = PhotoActivity.class;
-                            break;
-                        case R.id.nav_video:
-                            Toast.makeText(BaseActivity.this, "施工准备中...", Toast.LENGTH_SHORT).show();
-                            break;
-                        case R.id.nav_night_mode:
-                            break;
-                    }
-                    mDrawerLayout.closeDrawer(GravityCompat.START);
-                    return false;
+            navView.setNavigationItemSelectedListener(item -> {
+                switch (item.getItemId()) {
+                    case R.id.nav_news:
+                        mClass = NewsActivity.class;
+                        break;
+                    case R.id.nav_photo:
+                        mClass = PhotoActivity.class;
+                        break;
+                    case R.id.nav_video:
+                        Toast.makeText(BaseActivity.this, "施工准备中...", Toast.LENGTH_SHORT).show();
+                        break;
+                    case R.id.nav_night_mode:
+                        break;
                 }
+                mDrawerLayout.closeDrawer(GravityCompat.START);
+                return false;
             });
         }
 
