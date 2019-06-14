@@ -1,15 +1,22 @@
 package com.cgy.colorfulnews.module.about;
 
-import android.os.Bundle;
+import android.text.method.LinkMovementMethod;
+import android.text.util.Linkify;
+import android.widget.TextView;
 
 import com.cgy.colorfulnews.R;
 import com.cgy.colorfulnews.module.base.BaseActivity;
 
+import butterknife.BindView;
+
 public class AboutActivity extends BaseActivity {
+
+    @BindView(R.id.tv_msg)
+    TextView mTvMsg;
 
     @Override
     public int getLayoutId() {
-        return 0;
+        return R.layout.activity_about;
     }
 
     @Override
@@ -19,12 +26,8 @@ public class AboutActivity extends BaseActivity {
 
     @Override
     public void initView() {
-
+        mTvMsg.setAutoLinkMask(Linkify.ALL);
+        mTvMsg.setMovementMethod(LinkMovementMethod.getInstance());
     }
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_about);
-    }
 }

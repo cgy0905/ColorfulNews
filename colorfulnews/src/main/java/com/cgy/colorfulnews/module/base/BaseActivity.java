@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.graphics.PixelFormat;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.MenuItemCompat;
@@ -20,6 +19,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.CompoundButton;
 import android.widget.Toast;
 
 import com.cgy.colorfulnews.App;
@@ -74,7 +74,7 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
     protected NavigationView mBaseNavView;
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         KLog.i(getClass().getSimpleName());
         initAnnotation();
@@ -92,7 +92,6 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
         if (mIsHasNavigationView) {
             initDrawerLayout();
         }
-
         if (mPresenter != null) {
             mPresenter.onCreate();
         }
@@ -110,7 +109,8 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
     private void initNightModeSwitch() {
         if (this instanceof NewsActivity || this instanceof PhotoActivity) {
             MenuItem menuNightMode = mBaseNavView.getMenu().findItem(R.id.nav_night_mode);
-            SwitchCompat dayNightSwitch = (SwitchCompat) MenuItemCompat.getActionView(menuNightMode);
+            SwitchCompat dayNightSwitch = (SwitchCompat) MenuItemCompat
+                    .getActionView(menuNightMode);
             setCheckedState(dayNightSwitch);
             setCheckedEvent(dayNightSwitch);
         }
@@ -125,60 +125,67 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
     }
 
     private void setCheckedEvent(SwitchCompat dayNightSwitch) {
-        dayNightSwitch.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            if (isChecked) {
-                changeToNight();
-                MyUtils.saveTheme(true);
-            } else {
-                changeToDay();
-                MyUtils.saveTheme(false);
-            }
+        dayNightSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    changeToNight();
+                    MyUtils.saveTheme(true);
+                } else {
+                    changeToDay();
+                    MyUtils.saveTheme(false);
+                }
 
-            mIsChangeTheme = true;
-            mDrawerLayout.closeDrawer(GravityCompat.START);
+                mIsChangeTheme = true;
+                mDrawerLayout.closeDrawer(GravityCompat.START);
+            }
         });
     }
 
     private void initActivityComponent() {
         mActivityComponent = DaggerActivityComponent.builder()
-                .applicationComponent(((App)getApplication()).getApplicationComponent())
+                .applicationComponent(((App) getApplication()).getApplicationComponent())
                 .activityModule(new ActivityModule(this))
                 .build();
     }
 
-    private void initToolBar () {
-        Toolbar toolbar = (Toolbar)findViewById(R.id.toolbar);
+
+    private void initToolBar() {
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
     }
 
     private void initDrawerLayout() {
 
-        mDrawerLayout = (DrawerLayout)findViewById(R.id.drawer_layout);
+        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        NavigationView navView = findViewById(R.id.nav_view);
+        NavigationView navView = (NavigationView) findViewById(R.id.nav_view);
 
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, mDrawerLayout, toolbar,
-                R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                this, mDrawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         mDrawerLayout.addDrawerListener(toggle);
         toggle.syncState();
 
         if (navView != null) {
-            navView.setNavigationItemSelectedListener(item -> {
-                switch (item.getItemId()) {
-                    case R.id.nav_news:
-                        mClass = NewsActivity.class;
-                        break;
-                    case R.id.nav_photo:
-                        mClass = PhotoActivity.class;
-                        break;
-                    case R.id.nav_video:
-                        Toast.makeText(BaseActivity.this, "施工准备中...", Toast.LENGTH_SHORT).show();
-                        break;
-                    case R.id.nav_night_mode:
-                        break;
+            navView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+                @Override
+                public boolean onNavigationItemSelected(MenuItem item) {
+                    switch (item.getItemId()) {
+                        case R.id.nav_news:
+                            mClass = NewsActivity.class;
+                            break;
+                        case R.id.nav_photo:
+                            mClass = PhotoActivity.class;
+                            break;
+                        case R.id.nav_video:
+                            Toast.makeText(BaseActivity.this, "施工准备中...", Toast.LENGTH_SHORT).show();
+                            break;
+                        case R.id.nav_night_mode:
+                            break;
+                    }
+                    mDrawerLayout.closeDrawer(GravityCompat.START);
+                    return false;
                 }
-                mDrawerLayout.closeDrawer(GravityCompat.START);
-                return false;
             });
         }
 
@@ -213,7 +220,7 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
         }
     }
 
-    private void setNightOrDayMode () {
+    private void setNightOrDayMode() {
         if (MyUtils.isNightMode()) {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
 
@@ -223,9 +230,10 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         }
     }
-    //TODO:适配4.4
+
+    // TODO:适配4.4
     @TargetApi(Build.VERSION_CODES.KITKAT)
-    protected void setStatusBarTranslucent () {
+    protected void setStatusBarTranslucent() {
         if ((Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT &&
                 !(this instanceof NewsDetailActivity || this instanceof PhotoActivity
                         || this instanceof PhotoDetailActivity))
@@ -238,25 +246,26 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
         }
     }
 
-    public void changeToDay () {
-        //AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+    public void changeToDay() {
+//        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
         getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         mNightView.setBackgroundResource(android.R.color.transparent);
     }
 
-    public void changeToNight () {
+    public void changeToNight() {
 //        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-        getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+        getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+        initNightView();
         mNightView.setBackgroundResource(R.color.night_mask);
     }
 
-    private void initNightView () {
+    private void initNightView() {
         if (mIsAddedView) {
             return;
         }
-
-        //增加夜间模式蒙版
-        WindowManager.LayoutParams nightViewParam = new WindowManager.LayoutParams(WindowManager.LayoutParams.TYPE_APPLICATION,
+        // 增加夜间模式蒙板
+        WindowManager.LayoutParams nightViewParam = new WindowManager.LayoutParams(
+                WindowManager.LayoutParams.TYPE_APPLICATION,
                 WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE | WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE,
                 PixelFormat.TRANSPARENT);
         mWindowManager = (WindowManager) getSystemService(Context.WINDOW_SERVICE);
@@ -272,6 +281,7 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
         if (mIsHasNavigationView) {
             overridePendingTransition(0, 0);
         }
+//        getWindow().getDecorView().invalidate();
     }
 
     @Override
@@ -290,6 +300,7 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
                     startActivity(intent);
                 }
                 break;
+
         }
         return super.onOptionsItemSelected(item);
     }
@@ -318,9 +329,9 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
         MyUtils.fixInputMethodManagerLeak(this);
     }
 
-    private void removeNightModeMask () {
+    private void removeNightModeMask() {
         if (mIsAddedView) {
-            //移除夜间模式蒙版
+            // 移除夜间模式蒙板
             mWindowManager.removeViewImmediate(mNightView);
             mWindowManager = null;
             mNightView = null;
