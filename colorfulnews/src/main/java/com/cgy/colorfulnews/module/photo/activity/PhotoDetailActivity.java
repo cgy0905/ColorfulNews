@@ -1,4 +1,4 @@
-package com.cgy.colorfulnews.module.photo;
+package com.cgy.colorfulnews.module.photo.activity;
 
 import android.content.Context;
 import android.graphics.Color;

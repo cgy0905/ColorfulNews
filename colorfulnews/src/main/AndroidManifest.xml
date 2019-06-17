@@ -51,10 +51,10 @@
             android:theme="@style/BaseAppTheme.NoTrans"/>
 
         <activity
-            android:name=".module.photo.PhotoActivity"
+            android:name=".module.photo.activity.PhotoActivity"
             android:theme="@style/BaseAppTheme.NoTrans"/>
 
-        <activity android:name=".module.photo.PhotoDetailActivity"
+        <activity android:name=".module.photo.activity.PhotoDetailActivity"
             android:theme="@style/BaseAppTheme.NoTrans"/>
 
     </application>

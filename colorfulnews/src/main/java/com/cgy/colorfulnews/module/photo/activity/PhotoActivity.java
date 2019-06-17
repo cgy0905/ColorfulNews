@@ -1,4 +1,4 @@
-package com.cgy.colorfulnews.module.photo;
+package com.cgy.colorfulnews.module.photo.activity;
 
 import android.app.Activity;
 import android.app.ActivityOptions;

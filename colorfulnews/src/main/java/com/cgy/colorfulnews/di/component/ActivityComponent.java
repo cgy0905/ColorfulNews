@@ -10,8 +10,8 @@ import com.cgy.colorfulnews.module.news.activity.NewsActivity;
 import com.cgy.colorfulnews.module.news.activity.NewsChannelActivity;
 import com.cgy.colorfulnews.module.news.activity.NewsDetailActivity;
 import com.cgy.colorfulnews.module.news.activity.NewsPhotoDetailActivity;
-import com.cgy.colorfulnews.module.photo.PhotoActivity;
-import com.cgy.colorfulnews.module.photo.PhotoDetailActivity;
+import com.cgy.colorfulnews.module.photo.activity.PhotoActivity;
+import com.cgy.colorfulnews.module.photo.activity.PhotoDetailActivity;
 
 import dagger.Component;
 
