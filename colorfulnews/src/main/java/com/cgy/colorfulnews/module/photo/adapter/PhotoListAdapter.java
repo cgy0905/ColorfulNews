@@ -1,31 +1,16 @@
-/*
- * Copyright (c) 2016 咖枯 <kaku201313@163.com>
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- *
- */
-package com.kaku.colorfulnews.mvp.ui.adapter;
+package com.cgy.colorfulnews.module.photo.adapter;
 
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.kaku.colorfulnews.App;
-import com.kaku.colorfulnews.R;
-import com.kaku.colorfulnews.mvp.entity.PhotoGirl;
-import com.kaku.colorfulnews.mvp.ui.adapter.base.BaseRecyclerViewAdapter;
-import com.kaku.colorfulnews.utils.DimenUtil;
-import com.kaku.colorfulnews.widget.RatioImageView;
+import com.cgy.colorfulnews.App;
+import com.cgy.colorfulnews.R;
+import com.cgy.colorfulnews.entity.PhotoGirl;
+import com.cgy.colorfulnews.module.base.BaseRecyclerViewAdapter;
+import com.cgy.colorfulnews.utils.DimenUtil;
+import com.cgy.colorfulnews.widget.RatioImageView;
 import com.socks.library.KLog;
 import com.squareup.picasso.Picasso;
 
@@ -39,12 +24,13 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
- * @author 咖枯
- * @version 1.0 2016/8/7
+ * @author cgy
+ * @desctiption
+ * @date 2019/6/14 17:31
  */
 public class PhotoListAdapter extends BaseRecyclerViewAdapter<PhotoGirl> {
 
-    private int width = (int) (DimenUtil.getScreenSize() / 2);
+    private int width = (DimenUtil.getScreenSize() / 2);
 
     private Map<Integer, Integer> mHeights = new HashMap<>();
 
@@ -53,8 +39,9 @@ public class PhotoListAdapter extends BaseRecyclerViewAdapter<PhotoGirl> {
         super(null);
     }
 
+    @NonNull
     @Override
-    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view;
         switch (viewType) {
             case TYPE_FOOTER:
@@ -63,31 +50,27 @@ public class PhotoListAdapter extends BaseRecyclerViewAdapter<PhotoGirl> {
             case TYPE_ITEM:
                 view = getView(parent, R.layout.item_photo);
                 final ItemViewHolder itemViewHolder = new ItemViewHolder(view);
-//                itemViewHolder.setIsRecyclable(false);
                 setItemOnClickEvent(itemViewHolder);
                 return itemViewHolder;
             default:
                 throw new RuntimeException("there is no type that matches the type " +
                         viewType + " + make sure your using types correctly");
-        }
 
+        }
     }
 
     private void setItemOnClickEvent(final RecyclerView.ViewHolder holder) {
         if (mOnItemClickListener != null) {
-            holder.itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    mOnItemClickListener.onItemClick(v, holder.getLayoutPosition());
-                }
+            holder.itemView.setOnClickListener(v -> {
+                mOnItemClickListener.onItemClick(v, holder.getLayoutPosition());
             });
         }
     }
 
     @Override
-    public void onBindViewHolder(final RecyclerView.ViewHolder holder, final int position) {
+    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         super.onBindViewHolder(holder, position);
-        if (holder instanceof ItemViewHolder) {
+        if (holder instanceof  ItemViewHolder) {
 //            ((ItemViewHolder) holder).mPhotoIv.setOriginalSize(width, getHeight(position));
 
 /*            SimpleTarget<Bitmap> simpleTarget = new SimpleTarget<Bitmap>() {
@@ -107,18 +90,16 @@ public class PhotoListAdapter extends BaseRecyclerViewAdapter<PhotoGirl> {
                     .error(R.drawable.ic_load_fail)
 //                    .into(simpleTarget);
                     .into(((ItemViewHolder) holder).mPhotoIv);*/
-
-
-            Picasso.with(App.getAppContext()).load(mList.get(position).getUrl())
+            Picasso.with(App.getAppContext())
+                    .load(mList.get(position).getUrl())
                     .placeholder(R.color.image_place_holder)
                     .error(R.drawable.ic_load_fail)
-                    .into(((ItemViewHolder) holder).mPhotoIv);
+                    .into(((ItemViewHolder)holder).mIvPhoto);
             // 使用picasso加载图片可以自动计算图片实际宽高比进行设置，刷新也不会出现闪屏现象！
-        }
-
-        // 使用动画效果，当滑动过快时会引起item重叠，除了不使用动画，暂还没有想到更好的方法解决此冲突问题！
-        // 跳转到图片详情有时共享动画会卡着不动，点一下屏幕才恢复
+            // 使用动画效果，当滑动过快时会引起item重叠，除了不使用动画，暂还没有想到更好的方法解决此冲突问题！
+            // 跳转到图片详情有时共享动画会卡着不动，点一下屏幕才恢复
 //        setItemAppearAnimation(holder, position, R.anim.anim_rotate_scale_in);
+        }
     }
 
     private int getHeight(int position) {
@@ -152,9 +133,9 @@ public class PhotoListAdapter extends BaseRecyclerViewAdapter<PhotoGirl> {
         }
     }
 
-    class ItemViewHolder extends RecyclerView.ViewHolder {
-        @BindView(R.id.photo_iv)
-        RatioImageView mPhotoIv;
+    class ItemViewHolder extends RecyclerView.ViewHolder{
+        @BindView(R.id.iv_photo)
+        RatioImageView mIvPhoto;
 
         ItemViewHolder(View view) {
             super(view);

@@ -25,6 +25,8 @@ import com.cgy.colorfulnews.module.news.presenter.impl.NewsPresenterImpl;
 import com.cgy.colorfulnews.module.news.view.NewsView;
 import com.cgy.colorfulnews.utils.MyUtils;
 import com.cgy.colorfulnews.utils.RxBus;
+import com.yanzhenjie.permission.AndPermission;
+import com.yanzhenjie.permission.runtime.Permission;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -63,8 +65,20 @@ public class NewsActivity extends BaseActivity implements NewsView {
         super.onCreate(savedInstanceState);
         mSubscription = RxBus.getInstance().toObservable(ChannelChangeEvent.class)
                 .subscribe(channelChangeEvent -> mNewsPresenter.onChannelDbChanged());
+        requestPermission();
 
+    }
 
+    private void requestPermission() {
+        AndPermission.with(this)
+                .runtime()
+                .permission(Permission.WRITE_EXTERNAL_STORAGE,
+                        Permission.READ_EXTERNAL_STORAGE)
+                .onGranted(permissions -> {
+                })
+                .onDenied(permissions -> {
+                })
+                .start();
     }
 
     @Override

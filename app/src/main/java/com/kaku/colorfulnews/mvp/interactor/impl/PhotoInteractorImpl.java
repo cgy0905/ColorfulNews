@@ -69,7 +69,6 @@ public class PhotoInteractorImpl implements PhotoInteractor<List<PhotoGirl>> {
                     public void onNext(List<PhotoGirl> photoGirls) {
                         listener.success(photoGirls);
                     }
-                })
-                ;
+                });
     }
 }

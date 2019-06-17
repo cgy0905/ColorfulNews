@@ -10,6 +10,8 @@ import com.cgy.colorfulnews.module.news.activity.NewsActivity;
 import com.cgy.colorfulnews.module.news.activity.NewsChannelActivity;
 import com.cgy.colorfulnews.module.news.activity.NewsDetailActivity;
 import com.cgy.colorfulnews.module.news.activity.NewsPhotoDetailActivity;
+import com.cgy.colorfulnews.module.photo.PhotoActivity;
+import com.cgy.colorfulnews.module.photo.PhotoDetailActivity;
 
 import dagger.Component;
 
@@ -37,6 +39,10 @@ public interface ActivityComponent {
     void inject(NewsDetailActivity newsDetailActivity);
 
     void inject(NewsPhotoDetailActivity newsPhotoDetailActivity);
+
+    void inject(PhotoActivity photoActivity);
+
+    void inject(PhotoDetailActivity photoDetailActivity);
 
 
 }

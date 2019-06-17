@@ -6,6 +6,7 @@ import android.util.SparseArray;
 import com.cgy.colorfulnews.App;
 import com.cgy.colorfulnews.common.ApiConstants;
 import com.cgy.colorfulnews.common.HostType;
+import com.cgy.colorfulnews.entity.GirlData;
 import com.cgy.colorfulnews.entity.NewsDetail;
 import com.cgy.colorfulnews.entity.NewsSummary;
 import com.cgy.colorfulnews.utils.NetUtil;
@@ -168,5 +169,9 @@ public class RetrofitManager {
 
     public Observable<ResponseBody> getNewsBodyHtmlPhoto(String photoPath) {
         return mNewsService.getNewsBodyHtmlPhoto(photoPath);
+    }
+
+    public Observable<GirlData> getPhotoListObservable(int size, int page) {
+        return mNewsService.getPhotoList(size, page);
     }
 }

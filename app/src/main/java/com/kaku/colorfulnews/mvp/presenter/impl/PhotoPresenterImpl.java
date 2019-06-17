@@ -22,7 +22,7 @@ import com.kaku.colorfulnews.mvp.entity.PhotoGirl;
 import com.kaku.colorfulnews.mvp.interactor.impl.PhotoInteractorImpl;
 import com.kaku.colorfulnews.mvp.presenter.PhotoPresenter;
 import com.kaku.colorfulnews.mvp.presenter.base.BasePresenterImpl;
-
+import com.kaku.colorfulnews.mvp.view.PhotoView;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -31,12 +31,12 @@ import javax.inject.Inject;
  * @author 咖枯
  * @version 1.0 2016/8/6
  */
-public class PhotoPresenterImpl extends BasePresenterImpl<com.kaku.colorfulnews.mvp.view.PhotoView, List<PhotoGirl>>
+public class PhotoPresenterImpl extends BasePresenterImpl<PhotoView, List<PhotoGirl>>
         implements PhotoPresenter, RequestCallback<List<PhotoGirl>> {
     private PhotoInteractorImpl mPhotoInteractor;
     private static int SIZE = 20;
     private int mStartPage = 1;
-    private boolean misFirstLoad;
+    private boolean mIsFirstLoad;
     private boolean mIsRefresh = true;
 
     @Inject
@@ -52,7 +52,7 @@ public class PhotoPresenterImpl extends BasePresenterImpl<com.kaku.colorfulnews.
 
     @Override
     public void beforeRequest() {
-        if (!misFirstLoad) {
+        if (!mIsFirstLoad) {
             mView.showProgress();
         }
     }
@@ -69,7 +69,7 @@ public class PhotoPresenterImpl extends BasePresenterImpl<com.kaku.colorfulnews.
     @Override
     public void success(List<PhotoGirl> items) {
         super.success(items);
-        misFirstLoad = true;
+        mIsFirstLoad = true;
         if (items != null) {
             mStartPage += 1;
         }

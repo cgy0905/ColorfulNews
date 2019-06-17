@@ -76,7 +76,7 @@ public class PhotoDetailFragment extends BaseFragment {
 
     private void initPhotoView() {
         mSubscription = Observable.timer(100, TimeUnit.MILLISECONDS)    //直接使用glide加载的话,activity切换动画时背景短暂为默认背景色
-                .compose(TransformUtils.defaultSchedulers())
+                .compose(TransformUtils.<Long>defaultSchedulers())
                 .subscribe(new Subscriber<Long>() {
                     @Override
                     public void onCompleted() {
